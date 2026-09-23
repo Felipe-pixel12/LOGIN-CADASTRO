@@ -31,17 +31,13 @@ class FormularioModel:
             formulario = conn.execute('SELECT * FROM formulario WHERE id = ?', (formulario_id,)).fetchone()
             if not formulario:
                 return None
-
             nome = data.get('nome', formulario['nome'])
             email = data.get('email', formulario['email'])
             data_nascimento = data.get('data_nascimento', formulario['data_nascimento'])
             cpf = data.get('cpf', formulario['cpf'])
             genero = data.get('genero', formulario['genero'])
-
-            conn.execute('''UPDATE formulario
-                         SET nome = ?, email = ?, data_nascimento = ?, cpf = ?, genero = ?
-                         WHERE id = ?''',
-                         (nome, email, data_nascimento, cpf, genero, formulario_id))
+            conn.execute('''UPDATE formulario SET nome=?, email=?, data_nascimento=?, cpf=?, genero=?
+                         WHERE id=?''', (nome, email, data_nascimento, cpf, genero, formulario_id))
             conn.commit()
             return True
         finally:
@@ -54,7 +50,6 @@ class FormularioModel:
         if not formulario:
             conn.close()
             return None
-
         conn.execute('DELETE FROM formulario WHERE id = ?', (formulario_id,))
         conn.commit()
         conn.close()

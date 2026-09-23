@@ -36,10 +36,8 @@ class Usermodel:
             user = conn.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
             if not user:
                 return None
-
             new_username = username if username else user['username']
             new_password = password if password else user['password']
-
             conn.execute('UPDATE users SET username = ?, password = ? WHERE id = ?',
                          (new_username, new_password, user_id))
             conn.commit()
@@ -56,7 +54,6 @@ class Usermodel:
         if not user:
             conn.close()
             return None
-
         conn.execute('DELETE FROM users WHERE id = ?', (user_id,))
         conn.commit()
         conn.close()

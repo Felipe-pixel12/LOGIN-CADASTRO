@@ -12,17 +12,17 @@ def register():
 def login():
     return jsonify(UserController.login_user(request.get_json()))
 
-@user_bp.route('/<int:user_id>', methods=['GET'])
+@user_bp.route('/', methods=['GET'])
 @jwt_required()
 def get_user(user_id):
     return jsonify(UserController.get_user(user_id))
 
-@user_bp.route('/<int:user_id>', methods=['PUT'])
+@user_bp.route('/', methods=['PUT'])
 @jwt_required()
 def update_user(user_id):
     return jsonify(UserController.update_user(user_id, request.get_json()))
 
-@user_bp.route('/<int:user_id>', methods=['DELETE'])
+@user_bp.route('/', methods=['DELETE'])
 @jwt_required()
 def delete_user(user_id):
     return jsonify(UserController.delete_user(user_id))
