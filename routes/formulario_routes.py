@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from controllers.formulario_controller import FormularioController
 
@@ -8,19 +8,19 @@ formulario_bp = Blueprint('formulario', __name__)
 @jwt_required()
 def create_formulario():
     user_id = get_jwt_identity()
-    return jsonify(FormularioController.create_formulario(user_id, request.get_json()))
+    return FormularioController.create_formulario(user_id, request.get_json())
 
-@formulario_bp.route('/', methods=['GET'])
+@formulario_bp.route('/<int:formulario_id>', methods=['GET'])
 @jwt_required()
 def get_formulario(formulario_id):
-    return jsonify(FormularioController.get_formulario(formulario_id))
+    return FormularioController.get_formulario(formulario_id)
 
-@formulario_bp.route('/', methods=['PUT'])
+@formulario_bp.route('/<int:formulario_id>', methods=['PUT'])
 @jwt_required()
 def update_formulario(formulario_id):
-    return jsonify(FormularioController.update_formulario(formulario_id, request.get_json()))
+    return FormularioController.update_formulario(formulario_id, request.get_json())
 
-@formulario_bp.route('/', methods=['DELETE'])
+@formulario_bp.route('/<int:formulario_id>', methods=['DELETE'])
 @jwt_required()
 def delete_formulario(formulario_id):
-    return jsonify(FormularioController.delete_formulario(formulario_id))
+    return FormularioController.delete_formulario(formulario_id)
